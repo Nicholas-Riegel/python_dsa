@@ -37,7 +37,7 @@ class SLL(Generic[T]):
         
         if self.head is None:
             return self
-        if self.head == self.tail:
+        if self.head is self.tail:
             return self
         
         prev: Optional[Node[T]] = None
