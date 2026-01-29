@@ -1,48 +1,44 @@
-from typing import Optional, Self, TypeVar, Generic
+class Node:
 
-T = TypeVar('T')
+    def __init__(self, val):
+        self.val = val
+        self.next = None
 
-class Node(Generic[T]):
+class SLL:
 
-    def __init__(self, val: T) -> None:
-        self.val: T = val
-        self.next: Optional['Node[T]'] = None
+    def __init__(self):
+        self.length = 0
+        self.head = None
+        self.tail = None
 
-class SLL(Generic[T]):
-
-    def __init__(self) -> None:
-        self.length: int = 0
-        self.head: Optional[Node[T]] = None
-        self.tail: Optional[Node[T]] = None
-
-    def add_end(self, val: T) -> None:
+    def add_end(self, val):
         node = Node(val)
         if self.head is None:
             self.head = node
             self.tail = node
         else:
-            self.tail.next = node # type: ignore
-            self.tail = self.tail.next # type: ignore
+            self.tail.next = node
+            self.tail = self.tail.next
         self.length += 1
     
-    def __str__(self) -> str:
-        list0: list[T] = []
-        current: Optional[Node[T]] = self.head
+    def __str__(self):
+        list0 = []
+        current = self.head
         while current is not None:
             list0.append(current.val)
             current = current.next
         return str(list0)
 
-    def reverse(self) -> Self:
+    def reverse(self):
         
         if self.head is None:
             return self
         if self.head is self.tail:
             return self
         
-        prev: Optional[Node[T]] = None
-        mid: Optional[Node[T]] = self.head
-        next: Optional[Node[T]] = None
+        prev = None
+        mid = self.head
+        next = None
 
         while mid is not None:
             next = mid.next
