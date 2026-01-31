@@ -13,17 +13,15 @@ class DLL:
         self.tail = None
 
     def __str__(self):
-        list_0 = []
+        _list = []
         current = self.head
         while current is not None:
-            list_0.append(current.value)
+            _list.append(current.value)
             current = current.next
-        return str(list_0)
+        return str(_list)
     
     def addEnd(self, value):
-        
         newNode = NodeDLL(value)
-        
         if self.head is None:
             self.head = newNode
             self.tail = newNode
@@ -31,13 +29,10 @@ class DLL:
             newNode.prev = self.tail
             self.tail.next = newNode
             self.tail = newNode
-        
         self.length += 1
-
         return self
     
     def removeEnd(self):
-        
         if self.head is None:
             raise IndexError("List is empty.")
         elif self.head is self.tail:
@@ -50,24 +45,19 @@ class DLL:
             self.tail = self.tail.prev
             self.tail.next = None 
             self.length -= 1
-        
         return returnValue
     
     # Add to front
     def addFront(self, value):
-
         newNode = NodeDLL(value)
-        
         self.head.prev = newNode 
         newNode.next = self.head 
         self.head = newNode
         self.length += 1
-        
         return self
     
     # Remove from front
     def removeFront(self):
-        
         if self.head is None:
             raise IndexError("List is empty.")
         elif self.head is self.tail:
@@ -80,11 +70,9 @@ class DLL:
             self.head = self.head.next
             self.head.prev = None 
             self.length -= 1
-
         return returnValue
     
     def findAt(self, i):
-
         if i < self.length // 2:
             current = self.head
             for _ in range(i):
@@ -93,24 +81,20 @@ class DLL:
             current = self.tail
             for _ in range(self.length - 1 - i):
                 current = current.prev
-
         return current
     
     # Get at index
     def getAt(self, i):
-    
         if self.head is None:
             raise IndexError("List is empty.")
         elif i >= self.length or i < 0:
             raise IndexError("Index out of bounds.")
         else:
             current = self.findAt(i)
-            
         return current.value 
     
     # Set at index
     def setAt(self, i, value):
-        
         if self.head is None:
             raise IndexError("List is empty.")
         elif i >= self.length or i < 0:
@@ -118,12 +102,10 @@ class DLL:
         else:
             current = self.findAt(i)
             current.value = value
-        
         return self
     
     # Insert at index
     def insertAt(self, i, value):
-        
         if (i < 0 or i >= self.length):
             raise IndexError("Index out of bounds.")
         elif i == 0: 
@@ -133,19 +115,15 @@ class DLL:
         else:
             newNode = NodeDLL(value)
             oldNode = self.findAt(i)
-
             newNode.prev = oldNode.prev
             newNode.next = oldNode 
             oldNode.prev.next = newNode 
             oldNode.prev = newNode
-
             self.length += 1
-
         return self
     
     # Remove at index
     def removeAt(self, i):
-        
         if self.head is None:
             raise IndexError("List is empty.")            
         elif i >= self.length or i < 0:
@@ -163,23 +141,16 @@ class DLL:
 
     # Reverse
     def reverse(self):
-
         prev = None
         current = self.head
         next = None
-    
         while (current is not None):
-
             next = current.next
-
             current.next = prev
             current.prev = next
-
             prev = current
             current = next
-
         self.head, self.tail = self.tail, self.head
-        
         return self
 
 
