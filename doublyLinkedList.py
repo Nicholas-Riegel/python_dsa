@@ -154,10 +154,10 @@ class DLL:
         return self
 
 
-dll_0 = DLL()
-dll_0.addEnd("Hi")
-dll_0.addEnd("there")
-dll_0.addEnd("you")
-dll_0.addEnd("beautiful")
-dll_0.addEnd("thing")
-print(dll_0.reverse())
+dll = DLL()
+dll.addEnd("Hi")
+dll.addEnd("there")
+dll.addEnd("you")
+dll.addEnd("beautiful")
+dll.addEnd("thing")
+print(dll.reverse())
