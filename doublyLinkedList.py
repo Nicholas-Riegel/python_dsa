@@ -143,7 +143,6 @@ class DLL:
     def reverse(self):
         prev = None
         current = self.head
-        next = None
         while (current is not None):
             next = current.next
             current.next = prev
