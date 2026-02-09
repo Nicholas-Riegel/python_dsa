@@ -1,6 +1,7 @@
 class HashTable:
 
     # constructor sets lists in keyMap
+    # Time complexity: O(n)
     def __init__(self, size):
         self.keyMap = [] # instance aot class variable
         for _ in range(size):
@@ -10,11 +11,12 @@ class HashTable:
     def __str__(self):
         return str(self.keyMap)
     
-    # hash method
+    # hash method 
+    # Time complexity: O(1)
     def _hash(self, key):
 
         if key is None:
-            return
+            return None
         
         total = 0
         PRIME = 31
@@ -28,10 +30,11 @@ class HashTable:
         return total
 
     # Set method
+    # Time complexity: O(1) bc each bucket will only have a few elements
     def set(self, key, value):
         
         if key is None:
-            return
+            return None
         
         key = str(key)
         hashIndex = self._hash(key)
@@ -40,11 +43,13 @@ class HashTable:
         for i, (k, v) in enumerate(bucket):
             if k == key:
                 bucket[i] = (key, value)
-                return
+                return True
             
         bucket.append((key, value))
+        return True
 
     # Get method
+    # Time complexity: O(1) bc each bucket will only have a few elements
     def get(self, key):
         
         if key is None:
@@ -57,8 +62,11 @@ class HashTable:
         for k, v in bucket:
             if k == key:
                 return v
+        
+        return False
             
     # Keys method
+    # Time complexity: O(n) bc dump function
     def keys(self):
         returnlist = []
         for l in self.keyMap:
@@ -67,6 +75,7 @@ class HashTable:
         return returnlist
 
     # Values method
+    # Time complexity: O(n) bc dump function
     def values(self):
         returnlist = []
         for l in self.keyMap:
