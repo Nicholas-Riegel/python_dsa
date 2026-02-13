@@ -56,13 +56,46 @@ class AdjacencyList:
     def get_vertices(self):
         return list(self.mainDictOfSets.keys())
 
+    # Depth first search (recursive)
+    def dfs_recursive(self, vertex):
+        
+        returnList = []
+        # set keeps track of vertices visited. set for faster lookup
+        visitedVertices = set()
+        
+        def helper(v):
+            # add vertex to list and set
+            visitedVertices.add(v)
+            returnList.append(v)
+            # for each neighbor in a neighbor set
+            # if neighbor not visited, run helper function again
+            for neighbor in self.mainDictOfSets[v]:
+                if neighbor not in visitedVertices:
+                    helper(neighbor)
+        
+        helper(vertex)
+        
+        return returnList
+    
+
 
 #========
 # Tests
 #========
 al = AdjacencyList()
-al.add_vertex("Hello")
-al.add_edge("Hello", "World")
-print(al.have_edge("Hello", "World"))
-print(al.get_vertices())
-print(al)
+al.add_vertex("A")
+al.add_vertex("B")
+al.add_vertex("C")
+al.add_vertex("D")
+al.add_vertex("E")
+al.add_vertex("F")
+
+al.add_edge("A","B")
+al.add_edge("A","C")
+al.add_edge("B","D")
+al.add_edge("C","E")
+al.add_edge("D","E")
+al.add_edge("D","F")
+al.add_edge("E","F")
+
+print(al.dfs_recursive("A"))
