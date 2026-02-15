@@ -17,6 +17,7 @@ class AdjacencyList:
 
     # add edge method
     def add_edge(self, v1, v2):
+        
         if v1 not in self.mainDictOfLists:
             self.add_vertex(v1)
         if v2 not in self.mainDictOfLists:
@@ -93,10 +94,11 @@ class AdjacencyList:
             if v not in visitedSet:
                 visitedSet.add(v)
                 returnList.append(v)
-                stackList.extend(self.mainDictOfLists[v])
+                # stackList.extend(self.mainDictOfLists[v])
                 # to get the same output as the recursive
                 # need to reverse the list
-                # stackList.extend(reversed(self.mainDictOfLists[v]))
+                stackList.extend(reversed(self.mainDictOfLists[v]))
+                # alternatively, one could use a queue intead of a stack
         
         return returnList
 
@@ -107,26 +109,26 @@ class AdjacencyList:
 #========
 # Tests
 #========
-al = AdjacencyList()
-al.add_vertex("A")
-al.add_vertex("B")
-al.add_vertex("C")
-al.add_vertex("D")
-al.add_vertex("E")
-al.add_vertex("F")
+g = AdjacencyList()
+g.add_vertex("A")
+g.add_vertex("B")
+g.add_vertex("C")
+g.add_vertex("D")
+g.add_vertex("E")
+g.add_vertex("F")
 
-al.add_edge("A","B")
-al.add_edge("A","C")
-al.add_edge("B","D")
-al.add_edge("C","E")
-al.add_edge("D","E")
-al.add_edge("D","F")
-al.add_edge("E","F")
+g.add_edge("A","B")
+g.add_edge("A","C")
+g.add_edge("B","D")
+g.add_edge("C","E")
+g.add_edge("D","E")
+g.add_edge("D","F")
+g.add_edge("E","F")
 
 # recursive output should be [A, B, D, E, C, F]
-print(al.dfs_recursive("A"))
+print(g.dfs_recursive("A"))
 
 # iterative output should be [A, C, E, F, D, B]
 # this is still a valid output 
 # it just executes through a different path
-print(al.dfs_iterative("A"))
+print(g.dfs_iterative("A"))
