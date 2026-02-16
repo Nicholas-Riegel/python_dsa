@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class AdjacencyList:
 
     # constructor
@@ -84,7 +87,7 @@ class AdjacencyList:
     def dfs_iterative(self, start):
 
         returnList = []
-        stackList = [] # only use .append() and pop()
+        stackList = [] # only use append() and pop()
         visitedSet = set()
 
         stackList.append(start)
@@ -99,6 +102,25 @@ class AdjacencyList:
                 # need to reverse the list
                 stackList.extend(reversed(self.mainDictOfLists[v]))
                 # alternatively, one could use a queue intead of a stack
+        
+        return returnList
+    
+    # Breadth first search
+    def bfs_iterative(self, start):
+
+        returnList = []
+        q = deque() # use append() and popleft()
+        visitedSet = set()
+
+        q.append(start)
+
+        while q:
+            v = q.popleft()
+            if v not in visitedSet:
+                returnList.append(v)
+                visitedSet.add(v)
+                for neighbor in self.mainDictOfLists[v]:
+                    q.append(neighbor)
         
         return returnList
 
@@ -125,6 +147,15 @@ g.add_edge("D","E")
 g.add_edge("D","F")
 g.add_edge("E","F")
 
+#           A
+#        /     \
+#      B         C
+#      |         |
+#      D ------- E
+#        \      /
+#           F
+# 
+
 # recursive output should be [A, B, D, E, C, F]
 print(g.dfs_recursive("A"))
 
@@ -132,3 +163,6 @@ print(g.dfs_recursive("A"))
 # this is still a valid output 
 # it just executes through a different path
 print(g.dfs_iterative("A"))
+
+# should get [A, B, C, D, E, F]
+print(g.bfs_iterative("A"))
