@@ -1,45 +1,99 @@
 class PriorityQueue:
 
-    # create a values list
     def __init__(self):
-        self.valuesList = []
+        self.minBHList = []
     
     def __str__(self):
-        return str(self.valuesList)
+        return str(self.minBHList)
     
-    # enqueue method
-    # the for loop will cause O(n)
-    # but it will also clear our duplicates 
-    # making debugging easier
-    def enqueue(self, vertex, distance):
-        found = False
-        for item in self.valuesList:
-            if item['vertex'] == vertex:
-                item['distance'] = distance
-                found = True
-                break
-        if not found:
-            self.valuesList.append({"vertex": vertex, "distance": distance})
-        self.sort()
+    def enqueue(self, value, priority):
+        self.minBHList.append({"vertex": value, "distance": priority})
+        self.bubbleUp(len(self.minBHList) - 1)
 
-    # sort method
-    def sort(self):
-        self.valuesList.sort(key = lambda x: x["distance"] )
-        # this lambda function is equivalent to just returning the 
-        # distance key for each dict
-        # the sort method now sorts by the distance of each dict
-        # lowest number will be first
-     
-    # dequeue method
+    def bubbleUp(self, childIndex):
+
+        # get parent index
+        parentIndex = int((childIndex - 1)/2)
+        
+        # get child and parent priorities
+        childPriority = self.minBHList[childIndex]["distance"]
+        parentPriority = self.minBHList[parentIndex]["distance"]
+        
+        # if priority of child is less than priority of parent
+        if childPriority < parentPriority:
+            # switch values
+            self.swap(childIndex, parentIndex)
+            # run again (parentIndex becomes new childIndex)
+            self.bubbleUp(parentIndex)
+    
+    def swap(self, firstIndex, secondIndex):    
+        self.minBHList[firstIndex], self.minBHList[secondIndex] = self.minBHList[secondIndex], self.minBHList[firstIndex]
+
     def dequeue(self):
-        return self.valuesList.pop(0)
 
+        # Guard
+        if len(self.minBHList) == 0:
+            return None
+        if len(self.minBHList) < 3:
+            return self.minBHList.pop(0)
+        
+        # wap first and last values
+        self.swap(0, len(self.minBHList) - 1)
+        
+        # remove last value
+        item = self.minBHList.pop()
+        
+        # Rearrange
+        self.sinkDown(0)
 
-# test
-pq = PriorityQueue()
-pq.enqueue("A", 5)
-pq.enqueue("B", 4)
-pq.enqueue("C", 8)
-pq.enqueue("D", 7)
+        # return removed value
+        return item
+    
+    # Helper function for dequeue
+    # Recursively rearrange heap
+    def sinkDown(self, parentIndex):
 
-# print(pq)
+        # get child index
+        childIndex = self.lowestPriorityChildIndex(parentIndex)
+        
+        # guard
+        if childIndex is None: 
+            return
+        
+        # get priorities
+        parentPriority = self.minBHList[parentIndex]["distance"]
+        childPriority = self.minBHList[childIndex]["distance"]
+
+        #  if child priority is less than parent priority
+        if childPriority < parentPriority:
+            # swap parent and child values
+            self.swap(parentIndex, childIndex)
+            # run method again on new index
+            self.sinkDown(childIndex)
+    
+    # Helper function for sinkDown()
+    # find index of lowest (highest) priority child or return null
+    def lowestPriorityChildIndex(self, parentIndex):
+        
+        # Get the child indexes
+        leftChildIndex = 2 * parentIndex + 1
+        rightChildIndex = 2 * parentIndex + 2
+
+        # if both are ob, return null
+        if leftChildIndex >= len(self.minBHList): 
+            return None
+        
+        # if only right is ob, return left
+        elif rightChildIndex >= len(self.minBHList): 
+            return leftChildIndex
+        
+        # if both are in bounds, return the index of larger value
+        else:
+
+            leftChildPriority = self.minBHList[leftChildIndex]["distance"]
+            rightChildPriority = self.minBHList[rightChildIndex]["distance"]
+
+            if leftChildPriority < rightChildPriority: 
+                return leftChildIndex
+            else: 
+                return rightChildIndex

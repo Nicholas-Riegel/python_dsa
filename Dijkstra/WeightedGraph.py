@@ -1,6 +1,5 @@
 from PriorityQueue import PriorityQueue
 
-
 class WeightedGraph:
 
     # constructor
