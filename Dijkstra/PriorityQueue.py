@@ -26,7 +26,7 @@ class PriorityQueue:
             # run again (parentIndex becomes new childIndex)
             self.bubbleUp(parentIndex)
     
-    def swap(self, firstIndex, secondIndex):    
+    def swap(self, firstIndex, secondIndex):
         self.minBHList[firstIndex], self.minBHList[secondIndex] = self.minBHList[secondIndex], self.minBHList[firstIndex]
 
     def dequeue(self):
@@ -79,17 +79,16 @@ class PriorityQueue:
         leftChildIndex = 2 * parentIndex + 1
         rightChildIndex = 2 * parentIndex + 2
 
-        # if both are ob, return null
+        # if both are OB, return null
         if leftChildIndex >= len(self.minBHList): 
             return None
         
-        # if only right is ob, return left
+        # if only right is OB, return left
         elif rightChildIndex >= len(self.minBHList): 
             return leftChildIndex
         
         # if both are in bounds, return the index of larger value
         else:
-
             leftChildPriority = self.minBHList[leftChildIndex]["distance"]
             rightChildPriority = self.minBHList[rightChildIndex]["distance"]
 

@@ -39,8 +39,6 @@ class WeightedGraph:
             # add new edge
             self.mainDictOfLists[keyVertex].append(edge)
         
-        # find_remove_add(v1, Edge(v2, distance))
-        # find_remove_add(v2, Edge(v1, distance))
         find_remove_add(v1, {'vertex': v2, 'distance': distance})
         find_remove_add(v2, {'vertex': v1, 'distance': distance})
     
@@ -49,7 +47,7 @@ class WeightedGraph:
 
         # dict tracks shortest distance to start
         distances = {} 
-        # dicts tracks previous vertex of shortes path to start
+        # dicts tracks previous vertex of shortest path to start
         previous = {}
         # pq always pick vertex with shortest distance
         priorityQ = PriorityQueue()
@@ -85,7 +83,7 @@ class WeightedGraph:
                     current = previous[current]
                 path.reverse()
                 print("Shortest distance: " + str(distances[end]) + "\nShortest path: " + str(path))
-                return
+                return distances[end]
 
             # go through neighbors of current vertex
             for neighbor in self.mainDictOfLists[current_vertex]:
@@ -96,10 +94,13 @@ class WeightedGraph:
                 # find the distance from neighbor to start through base vertex
                 shortestDistance = distances[current_vertex] + neighbor_distance
 
+                # if the distance above is less than the previous recorded distance
                 if shortestDistance < distances[neighbor_vertex]:
+                    # set the recorded distance to the new distance
                     distances[neighbor_vertex] = shortestDistance
-                    # why do these have to indented here?
+                    # set the previous fo the neighbor to the current
                     previous[neighbor_vertex] = current_vertex
+                    # enque the neighbor with the new distance
                     priorityQ.enqueue(neighbor_vertex, distances[neighbor_vertex])
             
             # to see priorityQ while running
