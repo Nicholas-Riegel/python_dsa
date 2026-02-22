@@ -78,7 +78,7 @@ class WeightedGraph:
             if current_vertex == end:
                 path = []
                 current = end
-                while current != None:
+                while current is not None:
                     path.append(current)
                     current = previous[current]
                 path.reverse()
