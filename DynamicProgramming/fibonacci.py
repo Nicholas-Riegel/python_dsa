@@ -1,44 +1,54 @@
 # iterative fibonacci
 # Ot(n)
-def fib_it(n):
-    if n < 0:
-        return "n too small"
-    elif n <= 1:
+def fibIt(n):
+    # guard
+    if n < 0: 
+        return
+    # base cases 
+    elif n <= 1: 
         return n
+    # iteration
     else:
         first, second, new = 0, 1, None
-        n -= 1
-        for _ in range(n):
+        for _ in range(n-1):
             new = first + second
             first = second
             second = new
         return new
 
-# print(fib_it(0))
-
 # recursive fibonacci
 # this has a terrible time complexity O(2^n)
-def fib_rec(n):
-    
+def fibRec(n):
     # guard
-    if n < 0:
-        print("n too small")
+    if n < 0: 
         return
-    
     # base cases
-    if n == 1:
-        return 1
-    if n == 0:
-        return 0
-    
-    return fib_rec(n-1) + fib_rec(n-2)
+    elif n <= 1: 
+        return n
+    # recursion
+    else: 
+        return fibRec(n-1) + fibRec(n-2)
 
-# recusive fibonacci to list
-def fibRecToList(n):
-    series = []
-    for i in range(n):
-        # series.append(fib_rec(i))
-        series.append(fib_it(i))
-    return series
+# memoized recursive fibonacci
+# this has time complexity of O(n)
+def fibRecMem(n, memo={0:0, 1:1}):
+    # guard
+    if n < 0: 
+        return
+    # if n is a key in the memo, return the value
+    elif n in memo:
+        return memo[n]
+    # otherwise, memoize and return new result
+    else: 
+        result = fibRecMem(n-1, memo) + fibRecMem(n-2, memo)
+        memo[n] = result
+        return result 
 
-print(fibRecToList(8))
+
+# fib to list
+def fibToList(n): 
+    # return [fibIt(i) for i in range(n)]
+    # return [fibRec(i) for i in range(n)]
+    return [fibRecMem(i) for i in range(n)]
+
+print(fibToList(45))
