@@ -53,15 +53,9 @@ def fibTab(n): # 3
     if n <= 1:
         return n
     # table list
-    table = []
-    # populate table list for n+1
-    # so that table[n] gives the correct fib number at index of n
-    # so f(0)=0, f(1)=1, f(2)=1, f(3)=2
-    for i in range(n+1): # [0, 1, 2, 3]
-        if i <= 1:
-            table.append(i) # [0, 1]
-        else:
-            table.append(table[-1] + table[-2]) # [0, 1, 1, 2]
+    table = [0, 1]
+    for _ in range(n-1): # [0, 1] (but it dn matter bc just looking for the length)
+        table.append(table[-1] + table[-2]) # [0, 1, 1, 2]
     return table[n]
 
 # chat's solution
@@ -90,5 +84,5 @@ def fibToList(n):
     # return [fibRecMem(i) for i in range(n)]
     return [fibTab(i) for i in range(n)]
 
-print(fibToList(10))
-print(fibTab(4))
+print(fibToList(4))
+print(fibTab(3))
