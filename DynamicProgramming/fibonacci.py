@@ -1,52 +1,43 @@
 # iterative fibonacci
-# Ot(n)
+# Ot(n) (this is still the optimal approach)
 def fibIt(n):
-    # guard
-    if n < 0: 
-        return
-    # base cases 
-    elif n <= 1: 
+
+    if n <= 1: 
         return n
-    # iteration
-    else:
-        first, second, new = 0, 1, None
-        for _ in range(n-1):
-            new = first + second
-            first = second
-            second = new
-        return new
+    
+    first, second, new = 0, 1, None
+
+    for _ in range(n-1):
+        new = first + second
+        first = second
+        second = new
+    
+    return new
 
 # recursive fibonacci
 # this has a terrible time complexity O(2^n)
 def fibRec(n):
-    # guard
-    if n < 0: 
-        return
-    # base cases
-    elif n <= 1: 
+
+    if n <= 1: 
         return n
-    # recursion
-    else: 
-        return fibRec(n-1) + fibRec(n-2)
+    
+    return fibRec(n-1) + fibRec(n-2)
 
 # memoized recursive fibonacci
 # this has time complexity of O(n)
 def fibRecMem(n, memo={0:0, 1:1}):
-    # guard
-    if n < 0: 
-        return
-    # if n is a key in the memo, return the value
-    elif n in memo:
+
+    if n in memo:
         return memo[n]
-    # otherwise, memoize and return new result
-    else: 
-        result = fibRecMem(n-1, memo) + fibRecMem(n-2, memo)
-        memo[n] = result
-        return result 
+    
+    result = fibRecMem(n-1, memo) + fibRecMem(n-2, memo)
+    memo[n] = result
+    
+    return result 
 
 # tabulated fibonacci
 # this is "bottom" up dynamic programming
-# this returna the fib number at the index
+# this returns the fib number at the index
 # O(n)
 def fibTab(n): # 3
     
@@ -84,5 +75,5 @@ def fibToList(n):
     # return [fibRecMem(i) for i in range(n)]
     return [fibTab(i) for i in range(n)]
 
-print(fibToList(4))
-print(fibTab(3))
+print(fibToList(5))
+# print(fibTab(3))
