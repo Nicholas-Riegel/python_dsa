@@ -46,17 +46,19 @@ def fibRecMem(n, memo={0:0, 1:1}):
 
 # tabulated fibonacci
 # this is "bottom" up dynamic programming
-# this should return the fib number at the index
+# this returna the fib number at the index
 # O(n)
 def fibTab(n): # 3
-    # guard
+    
     if n <= 1:
         return n
-    # table list
+    
     table = [0, 1]
-    for _ in range(n-1): # [0, 1] (but it dn matter bc just looking for the length)
+    
+    for _ in range(n-1): # [0, 1] (but it dn matter bc just looping length)
         table.append(table[-1] + table[-2]) # [0, 1, 1, 2]
-    return table[n]
+    
+    return table[n] # 2
 
 # chat's solution
 # pre allocates memory so slightly more performant
@@ -66,9 +68,7 @@ def fibTabChat(n):
     if n <= 1:
         return n
     
-    table = [0] * (n + 1)  # table[i] = fibonacci number i
-    # [0] * 3        # [0, 0, 0]
-    # ['x'] * 2      # ['x', 'x']
+    table = [0] * (n + 1)  # ['x'] * 2 => ['x', 'x']
     table[0] = 0
     table[1] = 1
     
