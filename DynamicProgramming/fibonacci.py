@@ -1,60 +1,59 @@
 # iterative fibonacci
 # Ot(n) (this is still the optimal approach)
-def fibIt(n):
+def fib_iterative(n):
 
     if n <= 1: 
         return n
     
-    first, second, new = 0, 1, None
+    first, second, result = 0, 1, None
 
     for _ in range(n-1):
-        new = first + second
+        result = first + second
         first = second
-        second = new
-    
-    return new
+        second = result
+
+    return second
 
 # recursive fibonacci
 # this has a terrible time complexity O(2^n)
-def fibRec(n):
+def fib_recursive(n):
 
     if n <= 1: 
         return n
     
-    return fibRec(n-1) + fibRec(n-2)
+    return fib_recursive(n-1) + fib_recursive(n-2)
 
 # memoized recursive fibonacci
 # this has time complexity of O(n)
-def fibRecMem(n, memo={0:0, 1:1}):
+def fib_rec_mem(n, memo={0:0, 1:1}):
 
     if n in memo:
         return memo[n]
     
-    result = fibRecMem(n-1, memo) + fibRecMem(n-2, memo)
-    memo[n] = result
+    memo[n] = fib_rec_mem(n-1, memo) + fib_rec_mem(n-2, memo)
     
-    return result 
+    return memo[n] 
 
 # tabulated fibonacci
 # this is "bottom" up dynamic programming
 # this returns the fib number at the index
 # O(n)
-def fibTab(n): # 3
+def fib_tabulated(n): 
     
     if n <= 1:
         return n
     
     table = [0, 1]
     
-    for _ in range(n-1): # [0, 1] (but it dn matter bc just looping length)
-        table.append(table[-1] + table[-2]) # [0, 1, 1, 2]
+    for _ in range(n-1): 
+        table.append(table[-1] + table[-2]) 
     
-    return table[n] # 2
+    return table[n]
 
 # chat's solution
 # pre allocates memory so slightly more performant
 # O(n)
-def fibTabChat(n):
+def fib_tab_chat(n):
 
     if n <= 1:
         return n
@@ -66,14 +65,14 @@ def fibTabChat(n):
     for i in range(2, n + 1):
         table[i] = table[i-1] + table[i-2]
     
-    return table[n]  # Return just the nth fibonacci number
+    return table[n] 
 
 # fib to list
 def fibToList(n): 
-    # return [fibIt(i) for i in range(n)]
-    # return [fibRec(i) for i in range(n)]
-    # return [fibRecMem(i) for i in range(n)]
-    return [fibTab(i) for i in range(n)]
+    return [fib_iterative(i) for i in range(n)]
+    # return [fib_recursive(i) for i in range(n)]
+    # return [fib_rec_mem(i) for i in range(n)]
+    # return [fib_tabulated(i) for i in range(n)]
 
-print(fibToList(5))
-# print(fibTab(3))
+print(fibToList(10))
+# print(fib_tabulated(3))
