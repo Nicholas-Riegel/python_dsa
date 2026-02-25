@@ -4,6 +4,8 @@
 # This can often avoid the need for nested loops or O(N^2) operations with arrays / strings
 # Write a function called same, which accepts two arrays. The function should return true if every value in the array has it's corresponding value squared in the second array. The frequency of values must be the same.
 
+# first try
+# O(n)
 def same1(arr1, arr2):
 
     if len(arr1) != len(arr2):
@@ -12,7 +14,7 @@ def same1(arr1, arr2):
     freq1, freq2 = {}, {}
     
     for num in arr1:
-        num = num * num
+        num = num ** 2
         if num in freq1:
             freq1[num] += 1
         else:
@@ -26,6 +28,8 @@ def same1(arr1, arr2):
 
     return freq1 == freq2
 
+# more elegant
+# O(n)
 def same2(arr1, arr2):
 
     if len(arr1) != len(arr2):
@@ -34,7 +38,7 @@ def same2(arr1, arr2):
     freq1, freq2 = {}, {}
     
     for num in arr1:
-        num = num * num
+        num **= 2
         freq1[num] = freq1.get(num, 0) + 1
     for num in arr2:
         freq2[num] = freq2.get(num, 0) + 1
@@ -42,8 +46,34 @@ def same2(arr1, arr2):
     return freq1 == freq2
 
 
+# print(same2([1, 2, 3], [4, 1, 9]))  # True
+# print(same2([1, 2, 3], [1, 9]))  # False  
+# print(same2([1, 2, 1], [4, 4, 1]))  # False
+
+# ANAGRAMS
+# Given two strings, write a function to determine if the second string is an anagram of the first. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+
+def validAnagram(str1, str2):
+
+    if len(str1) != len(str2):
+        return False
+    
+    freq1, freq2 = {}, {}
+
+    for char in str1:
+        freq1[char] = freq1.get(char, 0) + 1
+    
+    for char in str2:
+        freq2[char] = freq2.get(char, 0) + 1
+
+    return freq1 == freq2
 
 
-print(same2([1, 2, 3], [4, 1, 9]))  # True
-print(same2([1, 2, 3], [1, 9]))  # False  
-print(same2([1, 2, 1], [4, 4, 1]))  # False
+# testing
+print(validAnagram('', '')) # true
+print(validAnagram('aaz', 'zza')) # false
+print(validAnagram('anagram', 'nagaram')) # true
+print(validAnagram("rat","car")) # false
+print(validAnagram('awesome', 'awesom')) # false
+print(validAnagram('qwerty', 'qeywrt')) # true
+print(validAnagram('texttwisttime', 'timetwisttext')) # true
