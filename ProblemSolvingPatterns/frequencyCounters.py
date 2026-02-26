@@ -40,6 +40,7 @@ def same2(arr1, arr2):
     for num in arr1:
         num **= 2
         freq1[num] = freq1.get(num, 0) + 1
+    
     for num in arr2:
         freq2[num] = freq2.get(num, 0) + 1
     

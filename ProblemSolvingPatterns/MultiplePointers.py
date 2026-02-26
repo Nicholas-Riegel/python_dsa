@@ -41,26 +41,8 @@ def countUniqueValues1(arr):
         unique.add(num)
     return len(unique)
 
-# Ot(n) Os(1)
+# Ot(n) Os(1) 
 def countUniqueValues2(arr):
-
-    current = 0
-    i = 0
-    unique = 0
-
-    if len(arr) > 0:
-        unique = 1
-
-    while i < len(arr) - 1:
-        i += 1
-        if arr[current] != arr[i]:
-            unique += 1
-            current = i
-    
-    return unique
-
-# Ot(n) Os(1) but more readable
-def countUniqueValues3(arr):
 
     if len(arr) == 0:
         return 0
@@ -76,9 +58,9 @@ def countUniqueValues3(arr):
     return unique
 
 
-print(countUniqueValues3([1,1,1,1,1,2])) # 2
-print(countUniqueValues3([1,2,3,4,4,4,7,7,12,12,13])) # 7
-print(countUniqueValues3([])) # 0
-print(countUniqueValues3([-2,-1,-1,0,1])) # 4
-print(countUniqueValues3([1,1,1,1, 2, 2, 2])) # 2
-print(countUniqueValues3([2])) # 1
+print(countUniqueValues2([1,1,1,1,1,2])) # 2
+print(countUniqueValues2([1,2,3,4,4,4,7,7,12,12,13])) # 7
+print(countUniqueValues2([])) # 0
+print(countUniqueValues2([-2,-1,-1,0,1])) # 4
+print(countUniqueValues2([1,1,1,1, 2, 2, 2])) # 2
+print(countUniqueValues2([2])) # 1
