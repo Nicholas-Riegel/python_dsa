@@ -12,7 +12,9 @@ def search(arr, n):
     end = len(arr) - 1
     
     while start <= end:
+
         mid = (start + end) // 2 # // floors it
+        
         if arr[mid] == n:
             return mid
         elif arr[mid] > n:
