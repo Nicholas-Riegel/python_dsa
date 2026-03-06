@@ -122,16 +122,17 @@ def findLongestSubstring(string):
     start = 0
     seen = {}
 
-    for end in range(len(string)):
+    for end, char in enumerate(string):
 
-        if string[end] not in seen or seen[string[end]] < start:
-            seen[string[end]] = end
+        if char not in seen or seen[char] < start:
+            seen[char] = end
 
         else:
-            start = seen[string[end]] + 1          
-            seen[string[end]] = end
+            start = seen[char] + 1          
+            seen[char] = end
 
         currentLength = end + 1 - start
+
         if currentLength > longest:
             longest = currentLength
     
