@@ -128,8 +128,8 @@ def findLongestSubstring(string):
             seen[char] = end
 
         else:
-            start = seen[char] + 1          
             seen[char] = end
+            start = seen[char] + 1          
 
         currentLength = end + 1 - start
 
