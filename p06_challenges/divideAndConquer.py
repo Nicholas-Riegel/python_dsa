@@ -1,29 +1,50 @@
 # Divide and Conquer - countZeroes
 # Given an array of 1s and 0s which has all 1s first followed by all 0s, write a function called countZeroes, which returns the number of zeroes in the array.
 # Time Complexity - O(log n)
+# def countZeroes(arr):
+
+#     numZeroes = 0
+#     start = 0
+#     end = len(arr) - 1
+#     mid = (end + 1 + start) // 2
+
+#     if arr[start] == 0:
+#         return len(arr)
+    
+#     while start < mid:
+        
+#         if arr[mid] == 0 and arr[mid - 1] == 1:
+#             numZeroes = len(arr) - mid
+#             break
+#         elif arr[mid] == 0:
+#             end = mid
+#         else:
+#             start = mid
+            
+#         mid = (end + 1 + start) // 2
+    
+#     return numZeroes
+
+# Chat's solution
 def countZeroes(arr):
-
-    numZeroes = 0
-    start = 0
-    end = len(arr) - 1
-    mid = (end + 1 + start) // 2
-
-    if arr[start] == 0:
+    
+    if not arr or arr[0] == 0:
         return len(arr)
     
-    while start < mid:
-        
-        if arr[mid] == 0 and arr[mid - 1] == 1:
-            numZeroes = len(arr) - mid
-            break
-        elif arr[mid] == 0:
-            end = mid
-        else:
-            start = mid
-            
-        mid = (end + 1 + start) // 2
+    left, right = 0, len(arr) - 1
     
-    return numZeroes
+    while left <= right:
+        
+        mid = (left + right) // 2
+        
+        if arr[mid] == 1:
+            left = mid + 1
+        else:  # arr[mid] == 0
+            if mid == 0 or arr[mid - 1] == 1:
+                return len(arr) - mid
+            right = mid - 1
+    
+    return 0  # All ones
 
 print(countZeroes([1,1,1,1,1,1])) # 0
 print(countZeroes([1,1,1,1,1,0])) # 1
